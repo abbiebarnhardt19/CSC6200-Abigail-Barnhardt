@@ -1,0 +1,2 @@
+I used ChatGPT to set up the initial .cpp, .h, and main format, since I haven't used it before. 
+All of the code in the project is my own.
