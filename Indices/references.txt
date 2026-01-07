@@ -1,2 +1,2 @@
-1) Used chatGPT to set up environment and figure out three file structure
-MAKE BETTER BEFORE TURN IN
+I used ChatGPT to set up the initial .cpp, .h, and main format, since I haven't used it before. 
+All of the code in the project is my own.
