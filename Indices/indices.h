@@ -1,7 +1,9 @@
 #ifndef INDICES_H
 #define INDICES_H
+#include <array>
+#include <vector>
 
-// Declare a function that takes an int and prints it
-void printUserInt(int value);
+// function that takes int array and int 
+void getNumSums(std::vector<int> nums, int target);
 
 #endif
