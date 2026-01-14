@@ -1,0 +1,4 @@
+Prompt: Implement an Linked List Implementation for Sparse Matrices as described in the module.
+
+Terminal Line: clang++ -std=gnu++14 "Linked List Implementation"/*.cpp -o program && ./program
+
