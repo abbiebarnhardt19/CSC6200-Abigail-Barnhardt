@@ -22,49 +22,60 @@ void printMatrix(std::vector<std::vector<int>> sparseMatrix){
 }
 
 //function for converting sparse array to compressed
-Node sparseToCompressed(std::vector<std::vector<int>> sparseMatrix){
-    Node firstNode;
-    Node prevNode;
-    Node currentNode;
+Node* sparseToCompressed(std::vector<std::vector<int>> sparseMatrix){
+    //make node pointers to keep track of the first node and the current node
+    Node* firstNode = nullptr;
+    Node* currentNode = nullptr;
 
-    std::string state = "empty list";
-
-    //for each row
+    //for each row in the sparse matrix
     for (int i = 0; i < sparseMatrix.size(); i++) {
         
-        //for each column
+        //for each column in the sparse matrix
         for (int j = 0; j < sparseMatrix[i].size(); j++) {
+            //if the value isn't zero, it should be added to the compressed matrix
             if(sparseMatrix[i][j] != 0){
-                if (state == "empty list"){
-                    firstNode = {i, j, sparseMatrix[i][j]};
-                    state = "just head";
 
+                //if there are no nodes, make it the head node
+                if (firstNode == nullptr){
+                    //make the node, now firstNode isnt nullptr anymore
+                    firstNode = new Node{i, j, sparseMatrix[i][j], nullptr};
                 }
-                else if (state == "just head"){
-                    currentNode = {i, j, sparseMatrix[i][j]};
-                    firstNode.next = &currentNode;
-                    std::cout<<firstNode.next;
-                    state = "multinode list";
+                //if theres only the header
+                else if (currentNode == nullptr){
+                    //make the new node, now currentNode isnt nullptr anymore
+                    currentNode = new Node{i, j, sparseMatrix[i][j], nullptr};
+                    //make the first node point to the new node
+                    firstNode->next = currentNode;
                 }
+                //if theres multiple nodes
                 else{
-                    prevNode = currentNode;
-                    currentNode = {i, j, sparseMatrix[i][j]};
-                    prevNode.next = &currentNode;
+                    //save the pointer to the node the new one will have to be attached to
+                    Node* prevNode = currentNode;
+                    //make the new node
+                    currentNode = new Node{i, j, sparseMatrix[i][j], nullptr};
+                    //connect the previous node to the new one
+                    prevNode->next = currentNode;
                 }
             }
         }
     }
 
-    //return the compressed matrix
+    //return the first node of the compressed matrix
     return firstNode;
 }
 
-void printLinkedList(Node firstNode){
-    Node currentNode = firstNode;
-    while (currentNode.next != nullptr){
-        std::cout<< "{" << currentNode.row << ", " << currentNode.column << ", " << currentNode.value << "}, ";
-        currentNode = *currentNode.next;
+//function to print all the nodes in the compressed matrix
+void printLinkedList(Node* firstNode){
+    //set the current node to the first node
+    Node* currentNode = firstNode;
+
+    //while current node isnt the tail
+    while (currentNode->next != nullptr){
+        //print {row, column, value}
+        std::cout<< "{" << currentNode->row << ", " << currentNode->column << ", " << currentNode->value << "}, ";
+        //set current node to the next node in the list
+        currentNode = currentNode->next;
     }
-    //print the last node
-    std::cout<< "{" << currentNode.row << ", " << currentNode.column << ", " << currentNode.value << "}";
+    //print the tail node
+    std::cout<< "{" << currentNode->row << ", " << currentNode->column << ", " << currentNode->value << "}";
 }

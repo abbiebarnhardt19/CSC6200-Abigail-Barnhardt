@@ -15,12 +15,12 @@ struct Node {
 };
 
 //function for printing the compressed array list
-void printLinkedList(Node firstNode);
+void printLinkedList(Node* firstNode);
 
 
 //function for converting the original sparse array to compressed array
 //takes in 2D vector array (sparse) and returns a linked list (compressed)
-Node sparseToCompressed(std::vector<std::vector<int>> sparseMatrix);
+Node* sparseToCompressed(std::vector<std::vector<int>> sparseMatrix);
 
 
 

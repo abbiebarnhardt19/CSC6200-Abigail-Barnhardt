@@ -2,3 +2,8 @@ Prompt: Implement an Linked List Implementation for Sparse Matrices as described
 
 Terminal Line: clang++ -std=gnu++14 "Linked List Implementation"/*.cpp -o program && ./program
 
+I used this article to get started with the node structure: https://www.geeksforgeeks.org/cpp/cpp-linked-list/
+
+I also used ChatGPT to help with some error handling when I couldn't understand what the error was, 
+but all the code and the concepts behind it was writen by me
+
