@@ -1,0 +1,6 @@
+Prompt: Implement an Array Implementation for Sparse Matrices as described in the module.
+
+Terminal Line: clang++ -std=gnu++14 "Array Implementation"/*.cpp -o program && ./program
+
+Used this to figure out how to do a 2D array with vectors: https://www.geeksforgeeks.org/cpp/vector-of-vectors-in-c-stl-with-examples/
+
