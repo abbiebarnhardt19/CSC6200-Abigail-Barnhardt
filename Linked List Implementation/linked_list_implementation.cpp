@@ -22,11 +22,12 @@ void printMatrix(std::vector<std::vector<int>> sparseMatrix){
 }
 
 //function for converting sparse array to compressed
-std::vector<std::vector<int>> sparseToCompressed(std::vector<std::vector<int>> sparseMatrix){
-    //make a vector array for each column of the compressed matrix
-    std::vector<int> rows;
-    std::vector<int> columns;
-    std::vector<int> values;
+Node sparseToCompressed(std::vector<std::vector<int>> sparseMatrix){
+    Node firstNode;
+    Node prevNode;
+    Node currentNode;
+
+    std::string state = "empty list";
 
     //for each row
     for (int i = 0; i < sparseMatrix.size(); i++) {
@@ -34,23 +35,36 @@ std::vector<std::vector<int>> sparseToCompressed(std::vector<std::vector<int>> s
         //for each column
         for (int j = 0; j < sparseMatrix[i].size(); j++) {
             if(sparseMatrix[i][j] != 0){
-                //add the row index, column index, and value of the non-zero elements to their 
-                //respective vectors
-                rows.push_back(i);
-                columns.push_back(j);
-                values.push_back(sparseMatrix[i][j]);
+                if (state == "empty list"){
+                    firstNode = {i, j, sparseMatrix[i][j]};
+                    state = "just head";
+
+                }
+                else if (state == "just head"){
+                    currentNode = {i, j, sparseMatrix[i][j]};
+                    firstNode.next = &currentNode;
+                    std::cout<<firstNode.next;
+                    state = "multinode list";
+                }
+                else{
+                    prevNode = currentNode;
+                    currentNode = {i, j, sparseMatrix[i][j]};
+                    prevNode.next = &currentNode;
+                }
             }
         }
     }
 
-    //make empty 2D vector matrix
-    std::vector<std::vector<int>> compressedMatrix;
-
-    //combine the individual vectors into one compressed matrix
-    for (int i = 0; i < rows.size(); i++){
-        compressedMatrix.push_back({rows[i], columns[i], values[i]});
-    }
-
     //return the compressed matrix
-    return compressedMatrix;
+    return firstNode;
+}
+
+void printLinkedList(Node firstNode){
+    Node currentNode = firstNode;
+    while (currentNode.next != nullptr){
+        std::cout<< "{" << currentNode.row << ", " << currentNode.column << ", " << currentNode.value << "}, ";
+        currentNode = *currentNode.next;
+    }
+    //print the last node
+    std::cout<< "{" << currentNode.row << ", " << currentNode.column << ", " << currentNode.value << "}";
 }

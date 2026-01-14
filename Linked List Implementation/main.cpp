@@ -16,13 +16,18 @@ int main() {
     cout<<"Sparse Matrix"<<endl;
     printMatrix(sparseMatrix);
 
-    //convert the sparse matrix to conmpressed and save it seperately
-    vector<vector<int>> compressedMatrix = sparseToCompressed(sparseMatrix);
+    Node test = {5, 5, 5};
+    Node test2 = {2,2,2};
+    test.next = &test2;
+    Node test3 = {1, 1, 1};
+    test2.next = &test3;
 
-    //display the compressed matrix
-    cout<<"Compressed Matrix"<<endl;
+    cout<<"Compressed Sparse Matrix"<<endl;
+    Node compressedFirstNode = sparseToCompressed(sparseMatrix);
+    printLinkedList(compressedFirstNode);
+    cout<<compressedFirstNode.next;
 
-    printMatrix(compressedMatrix);
+
 
     return 0;
 }
