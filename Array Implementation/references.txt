@@ -2,5 +2,6 @@ Prompt: Implement an Array Implementation for Sparse Matrices as described in th
 
 Terminal Line: clang++ -std=gnu++14 "Array Implementation"/*.cpp -o program && ./program
 
-Used this to figure out how to do a 2D array with vectors: https://www.geeksforgeeks.org/cpp/vector-of-vectors-in-c-stl-with-examples/
+Used this website to learn how to create and use a 2D vector array: https://www.geeksforgeeks.org/cpp/vector-of-vectors-in-c-stl-with-examples/
 
+Also used ChatGPT to understand an error message so I could resolve it. No code in the file is AI generated. 
