@@ -1,0 +1,3 @@
+Terminal Line: clang++ -std=gnu++14 "Dijkstra’s Algorithm"/*.cpp -o program && ./program
+
+Used this tutorial to represent the graph: https://www.geeksforgeeks.org/cpp/implementation-of-graph-in-cpp/
