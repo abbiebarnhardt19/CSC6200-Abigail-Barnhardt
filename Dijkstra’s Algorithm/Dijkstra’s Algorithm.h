@@ -1,19 +1,13 @@
 #include <vector>
-using namespace std;
 
-class Graph {
-private:
-    // choosing to use an adjacency matrix because I like using vectors and arrays
-    vector<vector<int>> adj_matrix;
 
-public:
-    // constructor
-    Graph(int vertices);
+// function to add an edge between two nodes
+std::vector<std::vector<int>> add_edge(std::vector<std::vector<int>> adj_list, int nodeOne, int nodeTwo, int weight);
 
-    // function to add an edge between two nodes
-    void add_edge(int nodeOne, int nodeTwo, int weight);
+//function to display the adjacency matrix
+void print_matrix(std::vector<std::vector<int>> adj_list);
 
-    // function to print the adjacency matrix
-    void printAdjacencyMatrix();
-};
 
+void algorithm(int startNode, int targetNode, std::vector<std::vector<int>> graph);
+
+void print_path(std::vector<int>);

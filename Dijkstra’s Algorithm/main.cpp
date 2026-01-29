@@ -4,17 +4,18 @@ using namespace std;
 
 int main() {
 
-    // initialize a graph with 4 vertices
-    Graph testGraph(4);
+    // initialize an empty matrix with dimensions equaling the number or vertices
+    int numVertices = 4;
+    std::vector<std::vector<int>> testGraph(numVertices, std::vector<int>(numVertices));
 
     // add edges with weights
-    testGraph.add_edge(0, 1, 6);
-    testGraph.add_edge(0, 2, 2);
-    testGraph.add_edge(1, 3, 4);
-    testGraph.add_edge(2, 3, 1);
+    testGraph = add_edge(testGraph, 0, 1, 6);
+    testGraph = add_edge(testGraph, 0, 2, 2);
+    testGraph = add_edge(testGraph, 1, 3, 4);
+    testGraph = add_edge(testGraph, 2, 3, 1);
 
-    // print the adjacency matrix representation of the graph
-    testGraph.printAdjacencyMatrix();
+    print_matrix(testGraph);
+    algorithm(0, 1, testGraph);
 
     return 0;
 }
