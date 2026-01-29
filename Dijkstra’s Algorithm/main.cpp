@@ -14,8 +14,11 @@ int main() {
     testGraph = add_edge(testGraph, 1, 3, 4);
     testGraph = add_edge(testGraph, 2, 3, 1);
 
+    //display the adjacency matrix
     print_matrix(testGraph);
-    algorithm(0, 1, testGraph);
+
+    //display the path + distance
+    algorithm(0, 3, testGraph);
 
     return 0;
 }
