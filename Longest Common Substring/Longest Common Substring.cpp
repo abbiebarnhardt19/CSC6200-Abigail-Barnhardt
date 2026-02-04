@@ -3,6 +3,7 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include <algorithm>
 
 //function that is called from main and will return result
 //makes and updates the results matrix to eventually return the longest common substring
@@ -14,6 +15,8 @@ void longestCommonSubstring(std::string string_one, std::string string_two){
     
     //call function to set up the row + column labels and first row to match the example/instructions
     setUpMatrix(matrix, string_one, string_two);
+
+    fillMatrix(matrix);
     
     //print the results matrix
     printMatrix(matrix);
@@ -44,4 +47,33 @@ void setUpMatrix(std::vector<std::vector<std::string>> &matrix, std::string stri
         matrix[1][i] = std::to_string(0);
         matrix[i][1] = std::to_string(0);
     }
+}
+
+void fillMatrix(std::vector<std::vector<std::string>> &matrix){
+     for (int i = 2; i < matrix.size(); i++){
+        for(int j = 2; j < matrix.size(); j++){
+            matrix[i][j] = std::to_string(checkIfEqual(matrix, j, i, 0));
+        }
+     }
+}
+
+int checkIfEqual(std::vector<std::vector<std::string>> &matrix, int row, int column, int currLength){
+    std::cout<<"comparing " << matrix[0][column] << " and " << matrix[row][0]<<std::endl;
+    if(row < 2 || column < 2){
+        std::cout<<"index less than 2"<<std::endl;
+        //return 0;
+    }
+    else if (0 != (matrix[0][column] == matrix[row][0])){
+        std::cout<<"match found between " << matrix[0][column] << " and "<< matrix[row][0] <<std::endl;
+        if (checkIfEqual(matrix, row, column-1, currLength+1) != 0)
+        {
+            currLength = currLength + 1;
+        }
+        //return currLength;
+    }
+    else{
+        std::cout<<"no match found between "<<  matrix[0][column] << " and "<< matrix[row-1][0] <<std::endl;
+        //return 0;
+    }
+    return currLength;
 }
