@@ -16,10 +16,14 @@ void longestCommonSubstring(std::string string_one, std::string string_two){
     //call function to set up the row + column labels and first row to match the example/instructions
     setUpMatrix(matrix, string_one, string_two);
 
+    //call function to fill the matrix with the substring counts
     fillMatrix(matrix);
-    
-    //print the results matrix
+
+    //display the matrix
     printMatrix(matrix);
+
+    //print the longest common substring
+    getResult(matrix);
 }
 
 //function to print the matrix
@@ -31,6 +35,7 @@ void printMatrix(std::vector<std::vector<std::string>> matrix){
         }
         std::cout<<std::endl;
     }
+    std::cout<<std::endl;
 }
 
 //function to set up the row+column labels and first row
@@ -49,31 +54,58 @@ void setUpMatrix(std::vector<std::vector<std::string>> &matrix, std::string stri
     }
 }
 
+//function to fill the matrix with the longest common substring values
 void fillMatrix(std::vector<std::vector<std::string>> &matrix){
+    //go through each remaining cell
      for (int i = 2; i < matrix.size(); i++){
         for(int j = 2; j < matrix.size(); j++){
-            matrix[i][j] = std::to_string(checkIfEqual(matrix, j, i, 0));
+            //fill it with the value of if there was a substring before it
+            matrix[i][j] = std::to_string(checkIfEqual(matrix, j, i));
         }
      }
 }
 
-int checkIfEqual(std::vector<std::vector<std::string>> &matrix, int row, int column, int currLength){
-    std::cout<<"comparing " << matrix[0][column] << " and " << matrix[row][0]<<std::endl;
+//function to check if there was a substring before
+int checkIfEqual(std::vector<std::vector<std::string>> &matrix, int row, int column){
+    //if we are back to the start of the word, return 0
     if(row < 2 || column < 2){
-        std::cout<<"index less than 2"<<std::endl;
-        //return 0;
+        return 0;
     }
+    //if there is a match, check the character before
     else if (0 != (matrix[0][column] == matrix[row][0])){
-        std::cout<<"match found between " << matrix[0][column] << " and "<< matrix[row][0] <<std::endl;
-        if (checkIfEqual(matrix, row, column-1, currLength+1) != 0)
-        {
-            currLength = currLength + 1;
-        }
-        //return currLength;
+        return 1 + checkIfEqual(matrix, row-1, column-1);
     }
+    //if there is no match, return 0
     else{
-        std::cout<<"no match found between "<<  matrix[0][column] << " and "<< matrix[row-1][0] <<std::endl;
-        //return 0;
+        return 0;
     }
-    return currLength;
+}
+
+//function for navigating the result matrix to get the answer
+void getResult(std::vector<std::vector<std::string>> &matrix){
+    //keep track of the current max length and where it is located
+    int currMax = 0;
+    int currMaxIndex = 0;
+    //go through each matrix cell
+    for (int i = 1; i < matrix.size(); i++){
+        for (int j = 1; j < matrix.size(); j++){
+            //if the value is bigger than the current max, update
+            if (std::stoi(matrix[i][j]) > currMax){
+                currMax = std::stoi(matrix[i][j]);
+                currMaxIndex = i;
+            }
+        }
+    }
+
+    std::cout<<"The longest common substring has a length of " << currMax << " and is " ;
+
+    //get to the start of the substring
+    currMaxIndex = currMaxIndex - currMax+1;
+
+    //print each character of the substring
+    for(int i = currMax; i > 0; i--){
+        std::cout<<matrix[0][currMaxIndex];
+        currMaxIndex = currMaxIndex + 1; 
+    }
+    std::cout<<std::endl;
 }
