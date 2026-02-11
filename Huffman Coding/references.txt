@@ -1,0 +1,4 @@
+Terminal Line: clang++ -std=gnu++14 "Huffman Coding"/*.cpp -o program && ./program
+
+Used this tutorial to make my basic tree: https://medium.com/@muskansanghai/trees-in-c-a-beginners-guide-to-understanding-and-implementing-fd0fc6026035
+Used code from here  to print the tree: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c

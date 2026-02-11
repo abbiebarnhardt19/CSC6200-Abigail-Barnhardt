@@ -1,1 +1,3 @@
 Terminal Line: clang++ -std=gnu++14 "Longest Common Substring"/*.cpp -o program && ./program
+
+I did not use any external resources for this project, everything is my own
