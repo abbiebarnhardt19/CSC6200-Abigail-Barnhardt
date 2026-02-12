@@ -9,14 +9,14 @@ void printTree(const std::string& prefix, const Node* node, bool isLeft)
     {
         std::cout << prefix;
 
-        std::cout << (isLeft ? "├──" : "└──" );
+        std::cout << (isLeft ? "├────" : "└────" );
 
         // print the value of the node
         std::cout << node->content.first << ", " << node->content.second << std::endl;
 
         // enter the next tree level - left and right branch
-        printTree( prefix + (isLeft ? "│   " : "    "), node->leftChild, true);
-        printTree( prefix + (isLeft ? "│   " : "    "), node->rightChild, false);
+        printTree( prefix + (isLeft ? "│   " : "       "), node->leftChild, true);
+        printTree( prefix + (isLeft ? "│   " : "       "), node->rightChild, false);
     }
 }
 
@@ -25,87 +25,67 @@ void printTree(const Node* node)
     printTree("", node, false);    
 }
 
+//helper function to compare nodes for sorting
+bool compareNodes(Node* one, Node* two){
+    //check which nodes are bigger
+    return one->content.first < two->content.first;
+}
 
-// Node* buildHuffTree(std::string string_one, std::vector<int> freq)
-// {
-//     //make a vector of pairs to map chars to frequencies
-//     std::vector<std::pair<char, int>> charFreq;
-
-//     //fill in the vector
-//     for (int i = 0; i < freq.size(); i++) {
-//         charFreq.push_back({string_one[i], freq[i]});
-//     }
-
-//     // sort the vector by frequency
-//     std::sort(charFreq.begin(), charFreq.end(),[](const std::pair<char, int>& left, const std::pair<char, int>& right) {return left.second < right.second; });
-
-//     //make a size variable
-//     int n = charFreq.size();
-
-//     // make the first node so the for loop has something to go off of, use * to indicate a not-leaf node
-//     Node* root = new Node(charFreq[0].second + charFreq[1].second, '*');
-
-//     //make the children
-//     root->leftChild  = new Node(charFreq[0].second, charFreq[0].first);
-//     root->rightChild = new Node(charFreq[1].second, charFreq[1].first);
-
-//     //build off that first tree until all chars are represented
-//     for (int i = 2; i < n; i++) {
-//         //build up the tree, with bigger values being closer to the top
-//         Node* newRoot = new Node(root->content.first + charFreq[i].second, '*');
-
-//         //make the old root the child
-//         newRoot->leftChild  = root;
-//         newRoot->rightChild = new Node(charFreq[i].second, charFreq[i].first);
-
-//         root = newRoot;
-
-//         std::sort(charFreq.begin(), charFreq.end(),[](const std::pair<char, int>& left, const std::pair<char, int>& right) {return left.second < right.second; });
-//     }
-
-//     printTree(root);
-//     return root;
-// }
+//function to assemble the huffman tree
 Node* buildHuffTree(std::string string_one, std::vector<int> freq)
 {
+    //make a vector of nodes
     std::vector<Node*> nodes;
 
-    // Step 1: create leaf nodes
+    // create nodes for each character
     for (int i = 0; i < freq.size(); i++) {
         nodes.push_back(new Node(freq[i], string_one[i]));
     }
 
-    // Step 2: build the tree
+    // assemble the tree using the nodes
     while (nodes.size() > 1) {
 
-        // Sort nodes by frequency (smallest first)
-        std::sort(nodes.begin(), nodes.end(),
-            [](Node* a, Node* b) {
-                return a->content.first < b->content.first;
-            }
-        );
+        // sort nodes using built in sort and compare function
+        std::sort(nodes.begin(), nodes.end(), compareNodes);
 
-        // Take two smallest
+        //take the two smallest
         Node* left  = nodes[0];
         Node* right = nodes[1];
 
-        // Create parent
-        Node* parent = new Node(
-            left->content.first + right->content.first,
-            '*'
-        );
+        //create parent, use * as indicator
+        Node* parent = new Node(left->content.first + right->content.first, '*');
 
+        //make the two smallest nodes children of the parent
         parent->leftChild  = left;
         parent->rightChild = right;
 
-        // Remove used nodes
+        // remove the two smallest nodes
         nodes.erase(nodes.begin());
         nodes.erase(nodes.begin());
 
-        // Put new tree back into list
+        //add the parent node to the list
         nodes.push_back(parent);
     }
 
+    //display the tree
     printTree(nodes[0]);
+
+    //return the root
     return nodes[0];
+}
+
+//function to traverse the tree to get the nodes
+void printCodes(Node* root, std::string currPath){
+    //if the path stops, stop
+    if (root == nullptr){
+        return;
+    }
+    //if its a leaf node, print code and then stop
+    if(root->content.second != '*'){
+        std::cout << root->content.second << ":" << currPath << std::endl;
+        return;
+    }
+    //if not a leaf node, go left and go right
+    printCodes(root->leftChild, currPath + "0");
+    printCodes(root->rightChild, currPath + "1");
 }
