@@ -1,0 +1,4 @@
+Terminal Line: clang++ -std=gnu++14 "Final Project"/*.cpp -o program && ./program
+
+Asked ChatGPT to check my math for the pre-processing
+Used chat gpt for appending the big-ending integer because I had never heard of that and couldn't figure out how to do it
