@@ -8,5 +8,7 @@ std::string preprocessing(std::string plain_text);
 
 int preprocessing_helper(int string_length);
 
+std::string processing(std::string preprocessed_string);
+
 #endif
 

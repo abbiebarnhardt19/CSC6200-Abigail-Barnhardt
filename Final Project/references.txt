@@ -1,4 +1,10 @@
 Terminal Line: clang++ -std=gnu++14 "Final Project"/*.cpp -o program && ./program
 
 Asked ChatGPT to check my math for the pre-processing
-Used chat gpt for appending the big-ending integer because I had never heard of that and couldn't figure out how to do it
+Used chat gpt for the big endian stuff because I had never heard of that and couldn't figure out how to do it
+
+Used https://emn178.github.io/online-tools/sha256.html to check output
+
+Lots of code is basically straight from the linked wikipedia
+
+This was really hard, all the bits and bytes and hex was confusing

@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 
-    std::string plain_text = "hello";
+    std::string plain_text = "testing";
 
     std:: string encrypted_text = encryption(plain_text);
 
